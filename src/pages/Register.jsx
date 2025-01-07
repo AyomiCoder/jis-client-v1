@@ -1,6 +1,5 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
-import backgroundVideo from '../assets/background.mp4';
 
 const Register = () => {
   const [formData, setFormData] = useState({
@@ -111,152 +110,170 @@ const Register = () => {
   };
 
   return (
-    <div className="relative min-h-screen flex items-center justify-center p-4">
-      <video autoPlay muted loop className="absolute inset-0 w-full h-full object-cover">
-        <source src={backgroundVideo} type="video/mp4" />
-        Your browser does not support the video tag.
-      </video>
-
-      <div className="glass p-6 sm:p-8 rounded-lg shadow-lg w-full max-w-4xl relative z-10">
-        <main>
+    <div className="min-h-screen flex items-center justify-center bg-gray-50 px-4 py-8 sm:px-6">
+      <div className="w-full max-w-2xl bg-white rounded-lg shadow-lg">
+        <div className="px-4 py-6 sm:px-8 sm:py-8">
           <div className="text-center mb-6">
-            <Link to="/" className="text-2xl font-bold text-white hover:text-blue-300 transition">JustInvoice</Link>
+            <Link to="/" className="text-xl sm:text-2xl font-bold text-blue-600 hover:text-blue-800 transition">
+              JustInvoice
+            </Link>
           </div>
-          <div className="flex flex-col items-center mb-6 sm:mb-8">
-            <h2 className="text-xl sm:text-2xl font-semibold text-white mb-2">Sign Up</h2>
-            <p className="text-sm sm:text-base text-gray-100">Create your account</p>
+          <div className="text-center mb-6">
+            <h2 className="text-lg sm:text-xl font-semibold text-gray-800 mb-1">Sign Up</h2>
+            <p className="text-sm text-gray-600">Create your account</p>
           </div>
 
-          <form onSubmit={handleSubmit} className="grid grid-cols-1 md:grid-cols-2 gap-4">
-            {[
-              { name: 'fullName', label: 'Full Name', placeholder: 'John Doe' },
-              { name: 'businessName', label: 'Business Name', placeholder: 'Your Business Name' },
-              { name: 'businessType', label: 'Business Type', placeholder: 'e.g. Sole Proprietorship' },
-              { name: 'email', label: 'Email', placeholder: 'john@example.com', type: 'email' },
-              { name: 'phoneNumber', label: 'Phone Number', placeholder: '+1 (555) 123-4567', type: 'tel' },
-              { name: 'state', label: 'State', placeholder: 'Your State' },
-              { name: 'country', label: 'Country', placeholder: 'Your Country' },
-            ].map((field) => (
-              <div key={field.name}>
-                <label htmlFor={field.name} className="block text-white text-sm sm:text-base mb-2">{field.label}</label>
-                <input
-                  type={field.type || 'text'}
-                  id={field.name}
-                  name={field.name}
-                  placeholder={field.placeholder}
-                  value={formData[field.name]}
-                  onChange={handleInputChange}
-                  className="w-full px-3 py-2 text-sm sm:text-base border border-white/30 rounded-lg bg-white/20 text-white focus:outline-none focus:border-blue-500"
-                  required
-                />
-              </div>
-            ))}
-
-            <div className="md:col-span-2">
-              <label htmlFor="password" className="block text-white text-sm sm:text-base mb-2">Password</label>
-              <div className="relative flex items-center">
-                <input
-                  type={passwordVisible ? 'text' : 'password'}
-                  id="password"
-                  name="password"
-                  placeholder="Enter your password"
-                  value={formData.password}
-                  onChange={handleInputChange}
-                  className="w-full px-3 py-2 pr-10 text-sm sm:text-base border border-white/30 rounded-lg bg-white/20 text-white focus:outline-none focus:border-blue-500"
-                  minLength="8"
-                  pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[!@#$%^&*]).{8,}"
-                  title="Must contain at least one number, one uppercase and lowercase letter, one special character (!@#$%^&*), and at least 8 characters"
-                  required
-                />
-                <button
-                  type="button"
-                  onClick={() => togglePasswordVisibility('password')}
-                  className="absolute right-2 p-1 text-white"
-                  aria-label="Toggle password visibility"
-                >
-                  {passwordVisible ? (
-                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="1.5" stroke="currentColor" className="w-5 h-5">
-                      <path strokeLinecap="round" strokeLinejoin="round" d="M3.98 8.223A10.477 10.477 0 001.934 12C3.226 16.338 7.244 19.5 12 19.5c.993 0 1.953-.138 2.863-.395M6.228 6.228A10.45 10.45 0 0112 4.5c4.756 0 8.773 3.162 10.065 7.498a10.523 10.523 0 01-4.293 5.774M6.228 6.228L3 3m3.228 3.228l3.65 3.65m7.894 7.894L21 21m-3.228-3.228l-3.65-3.65m0 0a3 3 0 10-4.243-4.243m4.242 4.242L9.88 9.88" />
-                    </svg>
-                  ) : (
-                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="1.5" stroke="currentColor" className="w-5 h-5">
-                      <path strokeLinecap="round" strokeLinejoin="round" d="M2.036 12.322a1.012 1.012 0 010-.639C3.423 7.51 7.36 4.5 12 4.5c4.638 0 8.573 3.007 9.963 7.178.07.207.07.431 0 .639C20.577 16.49 16.64 19.5 12 19.5c-4.638 0-8.573-3.007-9.963-7.178z"/>
-                      <path strokeLinecap="round" strokeLinejoin="round" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"/>
-                    </svg>
-                  )}
-                </button>
-              </div>
-              <div className="mt-2">
-                <div id="password-strength" className={`text-sm ${passwordStrength.color}`}>
-                  {passwordStrength.text && `Password strength: ${passwordStrength.text}`}
+          <form onSubmit={handleSubmit} className="space-y-4">
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+              {[
+                { name: 'fullName', label: 'Full Name', placeholder: 'John Doe' },
+                { name: 'businessName', label: 'Business Name', placeholder: 'Your Business Name' },
+                { name: 'businessType', label: 'Business Type', placeholder: 'e.g. Sole Proprietorship' },
+                { name: 'email', label: 'Email', placeholder: 'john@example.com', type: 'email' },
+                { name: 'phoneNumber', label: 'Phone Number', placeholder: '+1 (555) 123-4567', type: 'tel' },
+                { name: 'state', label: 'State', placeholder: 'Your State' },
+                { name: 'country', label: 'Country', placeholder: 'Your Country' },
+              ].map((field) => (
+                <div key={field.name} className="w-full">
+                  <label htmlFor={field.name} className="block text-sm font-medium text-gray-700 mb-1">
+                    {field.label}
+                  </label>
+                  <input
+                    type={field.type || 'text'}
+                    id={field.name}
+                    name={field.name}
+                    placeholder={field.placeholder}
+                    value={formData[field.name]}
+                    onChange={handleInputChange}
+                    className="w-full px-3 py-2 text-sm border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                    required
+                  />
                 </div>
-                <ul className="text-xs text-gray-300 mt-1 list-disc list-inside">
-                  <li>At least 8 characters long</li>
-                  <li>Contains at least one uppercase letter</li>
-                  <li>Contains at least one lowercase letter</li>
-                  <li>Contains at least one number</li>
-                  <li>Contains at least one special character (!@#$%^&*)</li>
-                </ul>
+              ))}
+            </div>
+
+            <div className="space-y-4">
+              <div>
+                <label htmlFor="password" className="block text-sm font-medium text-gray-700 mb-1">
+                  Password
+                </label>
+                <div className="relative">
+                  <input
+                    type={passwordVisible ? 'text' : 'password'}
+                    id="password"
+                    name="password"
+                    placeholder="Enter your password"
+                    value={formData.password}
+                    onChange={handleInputChange}
+                    className="w-full px-3 py-2 text-sm border border-gray-300 rounded-md pr-10 focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                    minLength="8"
+                    pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[!@#$%^&*]).{8,}"
+                    title="Must contain at least one number, one uppercase and lowercase letter, one special character (!@#$%^&*), and at least 8 characters"
+                    required
+                  />
+                  <button
+                    type="button"
+                    onClick={() => togglePasswordVisibility('password')}
+                    className="absolute right-2 top-1/2 -translate-y-1/2 text-gray-500 hover:text-gray-700"
+                  >
+                    {passwordVisible ? (
+                      <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
+                        <path d="M10 12a2 2 0 100-4 2 2 0 000 4z" />
+                        <path fillRule="evenodd" d="M.458 10C1.732 5.943 5.522 3 10 3s8.268 2.943 9.542 7c-1.274 4.057-5.064 7-9.542 7S1.732 14.057.458 10zM14 10a4 4 0 11-8 0 4 4 0 018 0z" clipRule="evenodd" />
+                      </svg>
+                    ) : (
+                      <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
+                        <path fillRule="evenodd" d="M3.707 2.293a1 1 0 00-1.414 1.414l14 14a1 1 0 001.414-1.414l-1.473-1.473A10.014 10.014 0 0019.542 10C18.268 5.943 14.478 3 10 3a9.958 9.958 0 00-4.512 1.074l-1.78-1.781zm4.261 4.26l1.514 1.515a2.003 2.003 0 012.45 2.45l1.514 1.514a4 4 0 00-5.478-5.478z" clipRule="evenodd" />
+                        <path d="M12.454 16.697L9.75 13.992a4 4 0 01-3.742-3.741L2.335 6.578A9.98 9.98 0 00.458 10c1.274 4.057 5.065 7 9.542 7 .847 0 1.669-.105 2.454-.303z" />
+                      </svg>
+                    )}
+                  </button>
+                </div>
+                <div className="mt-1">
+                  <div className={`text-sm ${passwordStrength.color}`}>
+                    {passwordStrength.text && `Password strength: ${passwordStrength.text}`}
+                  </div>
+                  <ul className="text-xs text-gray-500 mt-1 list-disc list-inside">
+                    <li>At least 8 characters long</li>
+                    <li>Contains at least one uppercase letter</li>
+                    <li>Contains at least one lowercase letter</li>
+                    <li>Contains at least one number</li>
+                    <li>Contains at least one special character (!@#$%^&*)</li>
+                  </ul>
+                </div>
+              </div>
+
+              <div>
+                <label htmlFor="confirm-password" className="block text-sm font-medium text-gray-700 mb-1">
+                  Confirm Password
+                </label>
+                <div className="relative">
+                  <input
+                    type={confirmPasswordVisible ? 'text' : 'password'}
+                    id="confirm-password"
+                    name="confirmPassword"
+                    placeholder="Confirm your password"
+                    value={formData.confirmPassword}
+                    onChange={handleInputChange}
+                    className="w-full px-3 py-2 text-sm border border-gray-300 rounded-md pr-10 focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                    required
+                  />
+                  <button
+                    type="button"
+                    onClick={() => togglePasswordVisibility('confirmPassword')}
+                    className="absolute right-2 top-1/2 -translate-y-1/2 text-gray-500 hover:text-gray-700"
+                  >
+                    {confirmPasswordVisible ? (
+                      <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
+                        <path d="M10 12a2 2 0 100-4 2 2 0 000 4z" />
+                        <path fillRule="evenodd" d="M.458 10C1.732 5.943 5.522 3 10 3s8.268 2.943 9.542 7c-1.274 4.057-5.064 7-9.542 7S1.732 14.057.458 10zM14 10a4 4 0 11-8 0 4 4 0 018 0z" clipRule="evenodd" />
+                      </svg>
+                    ) : (
+                      <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
+                        <path fillRule="evenodd" d="M3.707 2.293a1 1 0 00-1.414 1.414l14 14a1 1 0 001.414-1.414l-1.473-1.473A10.014 10.014 0 0019.542 10C18.268 5.943 14.478 3 10 3a9.958 9.958 0 00-4.512 1.074l-1.78-1.781zm4.261 4.26l1.514 1.515a2.003 2.003 0 012.45 2.45l1.514 1.514a4 4 0 00-5.478-5.478z" clipRule="evenodd" />
+                        <path d="M12.454 16.697L9.75 13.992a4 4 0 01-3.742-3.741L2.335 6.578A9.98 9.98 0 00.458 10c1.274 4.057 5.065 7 9.542 7 .847 0 1.669-.105 2.454-.303z" />
+                      </svg>
+                    )}
+                  </button>
+                </div>
+                {passwordMismatch && (
+                  <p className="mt-1 text-sm text-red-500">Passwords do not match</p>
+                )}
               </div>
             </div>
 
-            <div className="md:col-span-2">
-              <label htmlFor="confirm-password" className="block text-white text-sm sm:text-base mb-2">Confirm Password</label>
-              <div className="relative flex items-center">
-                <input
-                  type={confirmPasswordVisible ? 'text' : 'password'}
-                  id="confirm-password"
-                  name="confirmPassword"
-                  placeholder="Confirm your password"
-                  value={formData.confirmPassword}
-                  onChange={handleInputChange}
-                  className="w-full px-3 py-2 pr-10 text-sm sm:text-base border border-white/30 rounded-lg bg-white/20 text-white focus:outline-none focus:border-blue-500"
-                  required
-                />
-                <button
-                  type="button"
-                  onClick={() => togglePasswordVisibility('confirmPassword')}
-                  className="absolute right-2 p-1 text-white"
-                  aria-label="Toggle confirm password visibility"
-                >
-                  {confirmPasswordVisible ? (
-                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="1.5" stroke="currentColor" className="w-5 h-5">
-                      <path strokeLinecap="round" strokeLinejoin="round" d="M3.98 8.223A10.477 10.477 0 001.934 12C3.226 16.338 7.244 19.5 12 19.5c.993 0 1.953-.138 2.863-.395M6.228 6.228A10.45 10.45 0 0112 4.5c4.756 0 8.773 3.162 10.065 7.498a10.523 10.523 0 01-4.293 5.774M6.228 6.228L3 3m3.228 3.228l3.65 3.65m7.894 7.894L21 21m-3.228-3.228l-3.65-3.65m0 0a3 3 0 10-4.243-4.243m4.242 4.242L9.88 9.88" />
-                    </svg>
-                  ) : (
-                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="1.5" stroke="currentColor" className="w-5 h-5">
-                      <path strokeLinecap="round" strokeLinejoin="round" d="M2.036 12.322a1.012 1.012 0 010-.639C3.423 7.51 7.36 4.5 12 4.5c4.638 0 8.573 3.007 9.963 7.178.07.207.07.431 0 .639C20.577 16.49 16.64 19.5 12 19.5c-4.638 0-8.573-3.007-9.963-7.178z"/>
-                      <path strokeLinecap="round" strokeLinejoin="round" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"/>
-                    </svg>
-                  )}
-                </button>
-              </div>
-              {passwordMismatch && <div className="text-red-500 text-sm mt-1">Passwords do not match</div>}
-            </div>
-
-            <div className="md:col-span-2 mt-6">
+            <div className="mt-6">
               <button
                 type="submit"
-                className="w-full bg-blue-600 text-white rounded-lg px-4 py-2 text-sm sm:text-base font-semibold hover:bg-blue-700 transition duration-300 flex items-center justify-center"
                 disabled={isLoading}
+                className="w-full flex justify-center items-center px-4 py-2 text-sm font-medium text-white bg-blue-600 rounded-md hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 disabled:opacity-50 disabled:cursor-not-allowed"
               >
-                <span>{isLoading ? 'Registering...' : 'Register'}</span>
-                {isLoading && (
-                  <svg className="animate-spin ml-2 h-5 w-5 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
-                    <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
-                    <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
-                  </svg>
+                {isLoading ? (
+                  <>
+                    <svg className="animate-spin -ml-1 mr-2 h-4 w-4 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                      <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
+                      <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+                    </svg>
+                    Registering...
+                  </>
+                ) : (
+                  'Register'
                 )}
               </button>
             </div>
+
+            <p className="mt-4 text-center text-sm text-gray-600">
+              Already have an account?{' '}
+              <Link to="/login" className="font-medium text-blue-600 hover:text-blue-500">
+                Login here
+              </Link>
+            </p>
           </form>
-          <p className="mt-4 text-center text-sm sm:text-base text-white">
-            Already have an account? <Link to="/login" className="text-blue-300 hover:underline">Login here</Link>
-          </p>
-        </main>
+        </div>
       </div>
+
       {notification.isVisible && (
-        <div className={`fixed top-4 right-4 p-4 rounded-lg text-white font-semibold z-50 ${notification.isSuccess ? 'bg-green-500' : 'bg-red-500'}`}>
+        <div className={`fixed top-4 right-4 p-4 rounded-md shadow-lg text-white text-sm ${notification.isSuccess ? 'bg-green-500' : 'bg-red-500'}`}>
           {notification.message}
         </div>
       )}
